@@ -701,6 +701,15 @@
           br $_travelling_large)))
 
     ;; We now know the values of the next, previous, small, and large pointers
+    (block $_should_set_free_list_head
+      global.get $FREE_LIST_HEAD
+      local.get $ptr
+      i32.lt_u
+      br_if $_should_set_free_list_head
+      
+      local.get $ptr
+      global.set $FREE_LIST_HEAD)
+    
     local.get $ptr
     local.get $size
     i32.store
